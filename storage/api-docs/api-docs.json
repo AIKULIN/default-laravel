@@ -1,0 +1,263 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "檔案社群 API",
+        "description": "檔案社群API文件\n *         1.1 ~ 1.8 粉絲相關API\n *         2.1 ~ 2.6 創作者相關API",
+        "version": "1.0.19"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "本機"
+        },
+        {
+            "url": "https://waitSys.dev",
+            "description": "開發"
+        }
+    ],
+    "paths": {
+        "/api/v1/onsite/get_number": {
+            "post": {
+                "tags": [
+                    "前台"
+                ],
+                "summary": "場場取號",
+                "description": "現場員工登入後才可取號",
+                "operationId": "05f47580c1d50efb61b082896b25d89f",
+                "requestBody": {
+                    "content": {
+                        "multipart/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "gender",
+                                    "phone",
+                                    "head_count_big",
+                                    "head_count_small"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "description": "客戶名稱",
+                                        "type": "string",
+                                        "default": "李"
+                                    },
+                                    "gender": {
+                                        "description": "客戶名稱",
+                                        "default": "male",
+                                        "enum": [
+                                            "male",
+                                            "female"
+                                        ]
+                                    },
+                                    "phone": {
+                                        "description": "客戶名稱",
+                                        "type": "string",
+                                        "default": "0912345678"
+                                    },
+                                    "head_count_big": {
+                                        "description": "客戶名稱",
+                                        "type": "string",
+                                        "default": "1"
+                                    },
+                                    "head_count_small": {
+                                        "description": "客戶名稱",
+                                        "type": "string",
+                                        "default": "0"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "狀態",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "description": "",
+                                                        "type": "integer",
+                                                        "default": "1"
+                                                    },
+                                                    "name": {
+                                                        "description": "顯示名稱",
+                                                        "type": "string",
+                                                        "default": "james"
+                                                    },
+                                                    "username": {
+                                                        "description": "用戶名稱",
+                                                        "type": "string",
+                                                        "default": "jamesname"
+                                                    },
+                                                    "avatarImgUrl": {
+                                                        "description": "大頭照圖片連結",
+                                                        "properties": {
+                                                            "small": {
+                                                                "description": "50像素",
+                                                                "type": "string",
+                                                                "default": "http://123.com/test/50.jpg"
+                                                            },
+                                                            "middle": {
+                                                                "description": "144像素",
+                                                                "type": "string",
+                                                                "default": "http://123.com/test/144.jpg"
+                                                            },
+                                                            "full": {
+                                                                "description": "無縮小圖片",
+                                                                "type": "string",
+                                                                "default": "http://123.com/test/full.jpg"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    "avatar": {
+                                                        "description": "大頭照",
+                                                        "type": "object"
+                                                    },
+                                                    "email": {
+                                                        "description": "",
+                                                        "type": "string",
+                                                        "default": "james@cookietag.com"
+                                                    },
+                                                    "phone": {
+                                                        "description": "",
+                                                        "type": "integer",
+                                                        "default": "0912345678"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "認證錯誤"
+                    },
+                    "422": {
+                        "description": "錯誤"
+                    }
+                },
+                "security": [
+                    {
+                        "JwtToken": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/manage/users/login": {
+            "post": {
+                "tags": [
+                    "後台"
+                ],
+                "summary": "使用者登入",
+                "description": "",
+                "operationId": "290d329d594f21d1ce6b21ca521d5c45",
+                "requestBody": {
+                    "content": {
+                        "multipart/json": {
+                            "schema": {
+                                "required": [
+                                    "account",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "account": {
+                                        "description": "員工號碼",
+                                        "type": "string",
+                                        "default": "00001"
+                                    },
+                                    "password": {
+                                        "description": "密碼",
+                                        "type": "string",
+                                        "default": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "description": "狀態",
+                                            "type": "boolean"
+                                        },
+                                        "data": {
+                                            "description": "資料",
+                                            "properties": {
+                                                "verified": {
+                                                    "description": "驗證(true:已驗證,false:未驗證)",
+                                                    "type": "boolean"
+                                                },
+                                                "token": {
+                                                    "description": "簽章",
+                                                    "type": "string"
+                                                },
+                                                "token_type": {
+                                                    "description": "簽章類型",
+                                                    "type": "string"
+                                                },
+                                                "expires_in": {
+                                                    "description": "時效",
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "認證錯誤"
+                    },
+                    "422": {
+                        "description": "錯誤"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "JwtToken": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "後台",
+            "description": "員工管理、報表管理、當日即時報表"
+        }
+    ],
+    "externalDocs": {
+        "description": "Jwt IO",
+        "url": "https://jwt.io/"
+    }
+}
