@@ -168,8 +168,13 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ResponseServiceProvider::class,
         // L5 Swagger
         L5Swagger\L5SwaggerServiceProvider::class,
+        // L5 Repositories
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        // JWT
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
     ])->toArray(),
 
     /*

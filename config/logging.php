@@ -126,6 +126,21 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'limitRoute' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/exception/limitRoute.log'),
+            'days' => 10,
+            'replace_placeholders' => true,
+        ],
+
+        'handlerException' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/exception/error.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 10,
+            'replace_placeholders' => true,
+        ],
     ],
 
 ];

@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +27,29 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        $this->limitRoute();
+    }
+
+    /**
+     * 預防不允許的ROUTE 漏洞
+     * 限制預設ROUTE
+     *
+     * @return void
+     */
+    private function limitRoute()
+    {
+        $uri = request()->getRequestUri();
+        switch ($uri) {
+            case '/_ignition/health-check':
+            case '/_ignition/execute-solution':
+            case '/_ignition/update-config':
+            case '/sanctum/csrf-cookie':
+                $ip = request()->ip();
+                Log::channel('limitRoute')->info($uri.':'.$ip);
+                exit();
+            default:
+
+        }
     }
 }
