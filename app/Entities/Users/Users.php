@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
@@ -21,9 +22,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 // class User extends Model implements Transformable
 class Users extends Authenticatable implements Transformable, JWTSubject, MustVerifyEmail
 {
-    use TransformableTrait;
-    use SoftDeletes;
-    use Notifiable;
+    use TransformableTrait, SoftDeletes, Notifiable, HasRoles;
 
     /**
      * The table associated with the model.

@@ -58,12 +58,16 @@ class AuthService
         ];
     }
 
-    public function logout()
+    /**
+     * 登出
+     *
+     * @return bool
+     */
+    public function logout(): bool
     {
         auth()->guard('api')->logout();
         return false;
     }
-
 
     /**
      * 會員Email 驗證
@@ -91,7 +95,7 @@ class AuthService
      * @param $params
      * @return bool
      */
-    public function hasCorrectSignature($params)
+    public function hasCorrectSignature($params): bool
     {
         $signature = $params['signature'];
         unset($params['signature']);
