@@ -11,7 +11,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // L5 Repositories
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     /**

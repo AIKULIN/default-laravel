@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [
+            'driver' => 'jwt',
+            'provider' => 'jwt_users',
+        ],
     ],
 
     /*
@@ -65,10 +70,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'jwt_users' => [
+            'driver' => 'eloquent',// 資料取得方式
+            'model' => \App\Entities\Users\Users::class,// 模型位置
+        ],
     ],
 
     /*
@@ -96,6 +101,14 @@ return [
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
+        ],
+
+        'jwt_users' => [
+            'provider' => 'jwt_users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+            'reset' => \App\Notifications\ApiPasswordResetNotification::class
         ],
     ],
 
